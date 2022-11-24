@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ReadMoreFile</title>
+</head>
+<body>
+     <!-- <button class="save_button" onclick="f_load_files()">载入文件</button> -->
+     <!-- <input type="file" id="selectFiles" webkitdirectory/> -->
+
+
+    <script>
+         var graph={
+	"A":["B","C"],
+	"B":["A","C","D"],
+	"C":["A","D"],
+	"D":["B","C"],
+	"E":['F'],
+	"F":["E"],
+}
+//将对象转成Map，方便访问
+var graphM=new Map();
+for(var [key,value] of Object.entries(graph)){
+	graphM.set(key,value);
+}
+   console.log(graphM)
+
+
+   function DFS(root,s)
+   {
+       //用来存储访问过得节点
+        var remark=new Set()
+       //用来存储剩余访问节点
+        var arr=[]
+        //用来记录深度遍历节点
+        var dfs=[]
+        arr.push(s)
+        //标记访问过得节点
+        remark.add(s)
+        var vet;
+        while(arr.length>0)
+        {
+            //从栈顶弹出当前需要访问的节点
+
+            vet=arr.pop()
+            dfs.push(vet)
+            for(var item of root.get(vet))
+            {
+                //如果当前的邻接表中节点没有访问 放入栈中，并添加访问记号
+                if(!remark.has(item))
+                {
+                    arr.push(item)
+                    remark.add(item)
+                }
+            }
+        }
+        return dfs
+   }
+   var dfs1=DFS(graphM,'A')
+   var dfs2=DFS(graphM,'E')
+   console.log(dfs1)
+   console.log(dfs2)
+
+   //验证成功
+   
+       
+</script>
+</body>
+</html>
